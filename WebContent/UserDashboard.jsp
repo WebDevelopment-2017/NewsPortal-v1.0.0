@@ -19,7 +19,6 @@
 <script src="javascript/myModule.js"></script>
 <script src="javascript/UserFriends.js"></script>
 <script src="javascript/SearchFriends.js"></script>
-<script src="javascript/Discussion.js"></script>
 <script src="javascript/Update_Validation.js"></script>
 <script src="javascript/addNews.js"></script>
 <!-- --------------------------------------- Importing End ---------------------------------------------------------------- -->
@@ -64,7 +63,7 @@
 	<section class="mySection" ng-app="myapp" ng-init="id=${id}">
 	<!-- ======================================= Discussion Section Start ======================================= -->
 	<section class="col-sm-3">
-		<div ng-controller="getControl_Discussion">
+		<div>
 			<h5><b>{{my_discussion[flag].topic}}</b></h5>
 			<p>{{my_discussion[flag].text}}</p>
 			<h3>Comments Section</h3>
@@ -76,7 +75,8 @@
 					<li>{{x.comment}}</li>
 				</ul>
 			</div>
-			<div ng-controller="postComment_Discussion">
+			<div>
+			<!-- ng-controller="postComment_Discussion" -->
 				<form name="myform">
 					<input type="text" id="userComment" placeholder="Comment" ng-model="mycomment" name="mytext" required pattern="[a-zA-Z0-9 ]+"/>
 					<input type="button" value="comment" ng-click="myform.mytext.$valid && insertComment(my_discussion[flag].id,'${userObject.getUserName()}','${userObject.getUserEmail()}')" />
@@ -91,8 +91,8 @@
 	<section class="col-sm-9 mymainSection">
 	  <ul class="nav nav-tabs">
 	    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-	    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-	    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+	    <li><a data-toggle="tab" href="#menu1"><b>Post your news</b></a></li>
+	    <li><a data-toggle="tab" href="#menu2"><b>Follow your friends</b></a></li>
 	    <li><a data-toggle="tab" href="#menu3"><b>Edit Account</b></a></li>
 	  </ul>
 	  <div class="tab-content">
@@ -193,18 +193,38 @@
 				<!-- =============== Right Section of Add-News menu End ============== -->
 		</div>
 		<!-- ===================== Add your news End ====================== -->
-	    <div id="menu2" class="tab-pane fade" >
-	    	<div  ng-controller="mycontroller_SearchFriends">
-		      <input type="text" id="mytext"/>
-		      <table class="table">
-				<tr ng-repeat="x in mydata | limitTo: mydata.length-1">
-					<td>{{x.name}}</td>
-					<td>{{x.email}}</td>
-					<td><center><input type="button" value="AddFriend" ng-click="add(x.id);" class="btn btn-primary"/></center></td>
-				</tr>
-			</table>
-		     </div>
+		<!-- ===================== Find & Add Friend ====================== -->
+	    <div id="menu2" class="tab-pane fade">
+	    	<!-- =============== Follow friends functionality =============== -->
+	    	<div ng-controller="mycontroller_SearchFriends" class="col-sm-6">
+	    	<div>
+	    		<table class="table_UserSearch">
+	    			<tr>
+	    				<td style="width:20%"><b style="color:#34495e">Enter the name</b></td>
+	    				<td style="width:60%"><input type="text" id="mytext" ng-change="getOtherUsers();" ng-model="mypostdata.mytext" class="form-control"/></td>
+	    			</tr>
+		      	</table>
+	      	</div>
+	      	<div class="userList_Div">
+		      	<p id="message1" style="display:none;color:#c0392b"><b>No such user found...</b></p>
+		      	<table>
+					<tr ng-repeat="x in mydata">
+						<td style="width:40%;padding:1%"><b style="color:#34495e">{{x.name}}</b></td>
+						<td style="width:40%;padding:1%"><b style="color:#34495e">{{x.email}}</b></td>
+						<td style="width:10%;padding:1%"><center><input type="button" value="Follow" ng-click="add(x.id,x.name);" class="btn follow_Button"/></center></td>
+					</tr>
+				</table>
+			</div>
+			</div>
+			<!-- ==================== Follow friends instruction =============== -->
+			<div class="col-sm-4">
+				<h1 style="color:#34495e"><b>Follow your friends</b></h1>
+	      		<blockquote>
+	      		Follow your friends to chat with them
+	      		</blockquote>
+			</div>
 	    </div>
+	    <!-- ==================== Find & Add Friend End ==================== -->
 	    <div id="menu3" class="tab-pane fade">
 	      <div ng-controller="myctrl_Update">
       		<h2 class="heading_edityouraccount" data-toggle="collapse" data-target="#updateTable"><b>Edit Your Account</b></h2>
