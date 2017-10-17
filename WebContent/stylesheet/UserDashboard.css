@@ -43,9 +43,11 @@
 	margin-top:5%;
 	margin-bottom:3%;
 	padding:2%;
-	width:80%;
+	width:90%;
 	border-radius:2px;
 	border:dashed 5px black;
+	overflow:auto;
+	height:1100px;
 }
 .addNews_SecondDiv
 {
@@ -69,4 +71,31 @@
 .addNews_Table td
 {
 	padding: 1%;
+}
+.table_UserSearch
+{
+	margin-top:5%;
+	margin-bottom:5%;
+}
+.table_UserSearch td
+{
+	width:50%;
+}
+.userList_Div
+{
+	height:800px;
+	border:dashed 5px #641e16;
+	padding:5%;
+	overflow:auto;
+	width:100%;
+}
+.follow_Button
+{
+	background-color: #8e44ad;
+	color:white;
+	font-weight:bold;
+}
+.follow_Button:hover
+{
+	color:yellow;
 }
