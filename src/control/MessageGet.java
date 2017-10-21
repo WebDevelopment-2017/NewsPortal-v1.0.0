@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,10 +25,11 @@ import org.json.simple.parser.ParseException;
 @WebServlet("/MessageGet")
 public class MessageGet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection con=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
+		ResultSet rst=null;
 		con=Myconnection.getConncetion();
 		try
 		{
@@ -48,15 +50,21 @@ public class MessageGet extends HttpServlet {
 			ps.setInt(2,touserId);
 			ps.setInt(3,touserId);
 			ps.setInt(4,userId);
-			rs=ps.executeQuery();
+			rst=ps.executeQuery();
 			PrintWriter pw=response.getWriter();
-			String data="{\"myrecords\":[";
-			while(rs.next())
+			JSONObject json_wrapper=new JSONObject();
+			JSONArray json_array=new JSONArray();
+			while(rst.next())
 			{
-				data=data+"{\"id1\":\""+rs.getInt(2)+"\",\"id2\":\""+rs.getInt(3)+"\",\"text\":\""+rs.getString(4)+"\"},";
+				JSONObject temp_obj=new JSONObject();
+				temp_obj.put("id1",rst.getInt(2));
+				temp_obj.put("id2",rst.getInt(3));
+				temp_obj.put("text",rst.getString(4));
+				temp_obj.put("date",rst.getString(5));
+				json_array.add(temp_obj);
 			}
-			data=data+"{}]}";
-			pw.println(data);
+			json_wrapper.put("myrecords",json_array);
+			pw.println(json_wrapper);
 		}
 		catch(ParseException | SQLException e)
 		{
@@ -66,6 +74,10 @@ public class MessageGet extends HttpServlet {
 		{
 			try
 			{
+				if(rst!=null)
+				{
+					rst.close();
+				}
 				if(ps!=null)
 				{
 					ps.close();

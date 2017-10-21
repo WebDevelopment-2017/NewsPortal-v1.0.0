@@ -30,9 +30,11 @@ public class GetPost extends HttpServlet
 		
 		try 
 		{
+			int id=Integer.parseInt(request.getParameter("id"));
 			int image=Integer.parseInt(request.getParameter("image"));
 			Connection con=Myconnection.getConncetion();
-			PreparedStatement ps=con.prepareStatement("SELECT * FROM userpost WHERE postId=5");
+			PreparedStatement ps=con.prepareStatement("SELECT * FROM userpost WHERE postId=?");
+			ps.setInt(1,id);
 			ResultSet rs=ps.executeQuery();
 			OutputStream out=response.getOutputStream();
 			while(rs.next())

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 public class FriendListClass 
 {
-	public static List<FriendsDetail> myFriendList(int userId)
+	public static List<FriendsDetail> myFriendList(int userId,String mytext)
 	{
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -16,8 +16,10 @@ public class FriendListClass
 		try
 		{
 			con=Myconnection.getConncetion();
-			ps=con.prepareStatement("SELECT * FROM user WHERE userId IN (select userId2 FROM friendlist WHERE userId1=?)");
+			ps=con.prepareStatement("SELECT * FROM user WHERE userId IN (select userId2 FROM friendlist WHERE userId1=?) AND userName LIKE ?");
 			ps.setInt(1,userId);
+			mytext=mytext+"%";
+			ps.setString(2,mytext);
 			rs=ps.executeQuery();
 			while(rs.next())
 			{

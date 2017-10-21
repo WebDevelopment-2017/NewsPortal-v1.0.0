@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,6 +23,7 @@ import org.json.simple.parser.ParseException;
 public class SearchFriends extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		StringBuilder sb=new StringBuilder();
@@ -40,23 +43,32 @@ public class SearchFriends extends HttpServlet
 			Object object=Parse.parse(sb.toString());
 			JSONObject job=(JSONObject)object;
 			String mytext=job.get("mytext").toString();
-			String myid=job.get("myid").toString();
+			String myid=job.get("id").toString();
 			con=Myconnection.getConncetion();
-			//String query="SELECT userId,userName,userGender,userEmail FROM user WHERE userId NOT IN (SELECT userId2 FROM friendlist WHERE userId1="+myid+") AND userId NOT IN ("+myid+") AND userName LIKE \""+mytext+"%\";";
-			String query="SELECT userId,userName,userGender,userEmail FROM user WHERE userId NOT IN (SELECT userId2 FROM friendlist WHERE userId1="+myid+") AND userId NOT IN ("+myid+")";
+			String query="SELECT userId,userName,userGender,userEmail FROM user WHERE userId NOT IN (SELECT userId2 FROM friendlist WHERE userId1="+myid+") AND userId NOT IN ("+myid+") AND userName LIKE \""+mytext+"%\";";
+			//String query="SELECT userId,userName,userGender,userEmail FROM user WHERE userId NOT IN (SELECT userId2 FROM friendlist WHERE userId1="+myid+") AND userId NOT IN ("+myid+")";
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
-			String data="{\"myrecords\":[";
+			JSONObject jsonWrapper=new JSONObject();
+			JSONArray jsonArray=new JSONArray();
+			//String data="{\"myrecords\":[";
 			while(rs.next())
 			{
-				data=data+"{\"id\":\""+rs.getString(1)+"\",\"name\":\""+rs.getString(2)+"\",\"gender\":\""+rs.getString(3)+"\",\"email\":\""+rs.getString(4)+"\"},";
+				JSONObject myjsonobject=new JSONObject();
+				myjsonobject.put("id",rs.getInt(1));
+				myjsonobject.put("name",rs.getString(2));
+				myjsonobject.put("gender",rs.getString(3));
+				myjsonobject.put("email",rs.getString(4));
+				jsonArray.add(myjsonobject);
+				//data=data+"{\"id\":\""+rs.getString(1)+"\",\"name\":\""+rs.getString(2)+"\",\"gender\":\""+rs.getString(3)+"\",\"email\":\""+rs.getString(4)+"\"},";
 			}
-			data=data+"{}]}";
-			pw.print(data);
+			jsonWrapper.put("myrecords",jsonArray);
+			//data=data+"{}]}";
+			pw.print(jsonWrapper);
 		}
 		catch(ParseException | SQLException e)
 		{
-			pw.print("Error");
+			e.printStackTrace();
 		}
 		finally
 		{

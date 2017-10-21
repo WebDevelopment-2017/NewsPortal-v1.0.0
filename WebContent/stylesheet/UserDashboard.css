@@ -99,3 +99,69 @@
 {
 	color:yellow;
 }
+.following_countDiv
+{
+	margin-top:5%;
+	padding:3%;
+	box-shadow: 3px 3px 3px black;
+}
+.allUser_Button
+{
+	background-color: #566573;
+	color:white;
+	font-weight:bold;
+}
+.allUser_Button:hover
+{
+	color:yellow; 
+}
+.unfollow_Button
+{
+	background-color:#c0392b;
+	color:white;
+	font-weight:bold;
+	font-size:small;
+	font-style:italic;
+}
+.unfollow_Button:hover
+{
+	color:yellow; 
+}
+.messageBox_div
+{
+	overflow:auto;
+	padding:2%;
+	height:300px;
+	width:100%;
+	overflow:auto;
+}
+.messageBox_div_wrapper
+{
+	
+	width:100%;
+}
+.message_section
+{
+	height:900px;
+	border:dashed 5px #34495e;
+	overflow:auto;
+	padding:3%;
+}
+.send_Button
+{
+	background-color:#2874a6;
+	color:white;
+	font-weight:bold;
+	font-size:small;
+	width:60%;
+}
+..addNews_Div
+{
+	margin-top:5%;
+	margin-bottom:3%;
+	padding:2%;
+	border-radius:2px;
+	border:dashed 5px black;
+	overflow:auto;
+	height:1100px;
+}

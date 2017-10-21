@@ -10,8 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:set var="userId" value="${sessionScope.userId}" />
-	<c:set var="list" value="${UserPostGet.getmypost(userId)}" />
+	<c:set var="userId" value="1" />
+	<c:set var="list" value="${UserPostGet.getmypost(1)}" />
 	<p>Mypage</p>
 	<p>${list}</p>
 	<c:forEach items="${list}" var="element">

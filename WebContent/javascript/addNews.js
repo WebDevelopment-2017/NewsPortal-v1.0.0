@@ -65,14 +65,8 @@ function Video1()
 
 	}
 }
-function working()
-{
-	alert("Working");
-	return false;
-}
 function checkFiles()
 {
-	alert("Working");
 	var Image1type = document.getElementById('postImage1').files[0].type;
 	var Image2type = document.getElementById('postImage2').files[0].type;
 	var Video1type = document.getElementById('postVideo1').files[0].type;

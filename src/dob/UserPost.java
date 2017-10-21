@@ -20,6 +20,7 @@ public class UserPost extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		PrintWriter pw=response.getWriter();
+		pw.println("<html></head></head><body>");
 		pw.println("Please Wait....");
 		Post Post_obj=new Post();
 		UserPost UserPost_obj= new UserPost();
@@ -36,7 +37,13 @@ public class UserPost extends HttpServlet
 		if(flag>0)
 		{
 			pw.println("Data Saved !");
+			pw.println("<a href='UserDashboard.jsp'>Click Here To Go to Dashboard...</a>");
 		}
+		else
+		{
+			pw.println("Something Went Wrong ...");
+		}
+		pw.println("</body></head>");
 	}
 	protected InputStream getInputStream(Part content)
 	{

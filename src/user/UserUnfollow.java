@@ -1,61 +1,72 @@
-package dob;
+package user;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.SQLException;
+import connection.Myconnection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import control.Myconnection;
-
 /**
- * Servlet implementation class AddFriends
+ * Servlet implementation class UserUnfollow
  */
-@WebServlet("/AddFriends")
-public class AddFriends extends HttpServlet {
+@WebServlet("/UserUnfollow")
+public class UserUnfollow extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StringBuilder sb=new StringBuilder();
 		BufferedReader br=request.getReader();
-		PrintWriter pw=response.getWriter();
 		String temp=null;
-		Connection con=null;
-		Statement stmt=null;
 		if((temp=br.readLine())!=null)
 		{
 			sb.append(temp);
 		}
+		JSONParser Parser=new JSONParser();
+		Object obj=null;
+		try 
+		{
+			obj=Parser.parse(sb.toString());
+		}catch (ParseException e) 
+		{
+			e.printStackTrace();
+		}
+		JSONObject json_obj=(JSONObject)obj;
+		int id1=Integer.parseInt(json_obj.get("userId1").toString());
+		int id2=Integer.parseInt(json_obj.get("userId2").toString());
+		int result=UserUnfollow.deleteUser(id1, id2);
+		JSONObject send_obj=new JSONObject();
+		send_obj.put("result",result);
+		PrintWriter pw=response.getWriter();
+		pw.println(send_obj);
+	}
+	protected static int deleteUser(int id1,int id2)
+	{
+		Connection con=null;
+		Statement stmt=null;
+		int result[]={};
 		try
 		{
-			JSONParser Parse=new JSONParser();
-			Object object=Parse.parse(sb.toString());
-			JSONObject job=(JSONObject)object;
 			con=Myconnection.getConncetion();
 			stmt=con.createStatement();
-			int userId1=Integer.parseInt(job.get("userId1").toString());
-			int userId2=Integer.parseInt(job.get("userId2").toString());
-			stmt.addBatch("INSERT INTO friendlist VALUES(null,"+userId1+","+userId2+",now())");
-			stmt.addBatch("INSERT INTO friendlist VALUES(null,"+userId2+","+userId1+",now())");
-			stmt.addBatch("INSERT INTO follownotify VALUES(null,"+userId2+","+userId1+",now())");
-			stmt.executeBatch();
-			pw.print("{\"flag\":\"1\"}");
+			stmt.addBatch("DELETE FROM friendlist WHERE userId1="+id1+" AND userId2="+id2+"");
+			stmt.addBatch("DELETE FROM friendlist WHERE userId1="+id2+" AND userId2="+id1+"");
+			stmt.addBatch("INSERT INTO unfollownotify VALUES(null,"+id2+","+id1+",now())");
+			result=stmt.executeBatch();
 		}
-		catch(ParseException | SQLException e)
+		catch(SQLException e)
 		{
-			pw.print("{\"flag\":\"0\"}");
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -72,9 +83,10 @@ public class AddFriends extends HttpServlet {
 			}
 			catch(SQLException e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
+		return result[1];
 	}
 
 	/**

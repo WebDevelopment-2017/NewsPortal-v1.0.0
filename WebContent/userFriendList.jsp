@@ -72,7 +72,7 @@
 </head>
 <body ng-app="myapp" ng-controller="myctrl">
 	<c:set var="userId" value='${sessionScope.userId}' />
-	<c:set var="list" value='${FriendListClass.myFriendList(userId)}' />  
+	<c:set var="list" value='${FriendListClass.myFriendList(1)}' />  
 	<div>
 		<div>
 		<h5 class="heading"><b>Your Friend List</b></h5>
