@@ -14,12 +14,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="javascript/angular.min.js"></script>
+<script src="javascript/myModule.js"></script>
+<script src="javascript/GetIndexPost.js"></script>
 <link rel="stylesheet" href="stylesheet/index.css">
 <!-- ------------------------------------------------------------------------------------------ -->
 <c:set var="id" value="${cookie.DEMOCRATIC_User_id.value}" />
 <c:set var="userObject" value="${UserBasicInfo.getUserdata(id)}" />
 </head>
-<body>
+<body ng-app="myapp">
 	<!-- ============= upper navigation bar ================= -->
 	<nav class="navbar mynavbar navbar-fixed-top">
 	<div class="container-fluid">
@@ -91,14 +94,37 @@
   <!-- ==================== Main Image Slider End =================== -->
   <!-- ==================== My Navigation Bar ======================= -->
   <c:set var="Category" value="${GetCategory.category()}" />
-  <div>
-  <nav>
-  	<ul class="nav navbar-nav" >
-  		<c:forEach var="object" items="${Category}">
-  		<li><a href="#" ng-click="getNews(${object.getCategoryId()})">${object.getCategoryName()}</a></li>
-  		</c:forEach>
-  	</ul>
-  </nav>
+  <div ng-controller="GET_INDEX_POST">
+	<nav>
+	 	<ul class="nav navbar-nav" >
+	 		<c:forEach var="object" items="${Category}">
+	 		<li><a href="#" ng-click="getNews(${object.getCategoryId()})">${object.getCategoryName()}</a></li>
+	 		</c:forEach>
+	 	</ul>
+	</nav><br>
+	<input type="radio" ng-model="tablename" value="adminpost"/>UserPost
+	<input type="radio" ng-model="tablename" value="userpost"/>AdminPost
+	<input type="radio" ng-model="tablename" value=""/>All
+	<div class="col-sm-12">
+		<div style="height:900px;overflow:auto">
+	      <div ng-repeat="x in mylist" ng-hide="x.tablename==tablename">
+	      	<h4>{{x.name}}</h4>
+	      	<a data-toggle="collapse" data-target="#post{{x.postId}}image" style="text-decoration:none"><b>Images</b></a>
+	      	<div class="collapse" id="post{{x.postId}}image">
+	      	<div class="col-sm-6"><image src="GET_POST_MEDIA?requestFileIndex=1&requestId={{x.postId}}&requestTableName={{x.tablename}}" width="400px" height="300px"/></div>
+	      	<div class="col-sm-6"><image src="GET_POST_MEDIA?requestFileIndex=2&requestId={{x.postId}}&requestTableName={{x.tablename}}" width="400px" height="300px"/></div>
+	      	</div>
+	      	<p>{{x.body}}</p>
+	      	<h6>{{x.work}}</h6>
+	      	<a data-toggle="collapse" data-target="#post{{x.postId}}video" style="text-decoration:none"><b>Video</b></a>
+	      	<div class="collapse" id="post{{x.postId}}video">
+		      	<video width="500" height="240" controls>
+		  		<source src="GET_POST_MEDIA?requestFileIndex=3&requestId={{x.postId}}&requestTableName={{x.tablename}}" type="video/mp4">
+				</video> 
+			</div>
+	      </div>
+	      </div>
+	</div>
   </div>
   <!-- ==================== My Navigation Bar ======================= -->
 </body>
