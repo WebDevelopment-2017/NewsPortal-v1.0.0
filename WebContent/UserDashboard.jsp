@@ -19,6 +19,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="javascript/angular.min.js"></script>
 <script src="javascript/myModule.js"></script>
+<script src="javascript/Discussion.js"></script>
 <script src="javascript/UserFriends.js"></script>
 <script src="javascript/SearchFriends.js"></script>
 <script src="javascript/Update_Validation.js"></script>
@@ -68,7 +69,7 @@
 	<!-- ================================================================= WebPage Main Section ================================================================= -->
 	<section class="mySection" ng-app="myapp" ng-init="id=${id}">
 	<!-- ======================================= Discussion Section Start ======================================= -->
-	<section class="col-sm-3">
+	<section class="col-sm-3" ng-controller="getControl_Discussion">
 		<div>
 			<h5><b>{{my_discussion[flag].topic}}</b></h5>
 			<p>{{my_discussion[flag].text}}</p>
@@ -86,7 +87,7 @@
 				<form name="myform">
 					<!-- ===================================== Working On This Filed =================================== -->
 					<input type="text" id="userComment" placeholder="Comment" ng-model="mycomment" name="mytext" required pattern="[a-zA-Z0-9 ]+"/>
-					<input type="button" value="comment" ng-click="insertComment(id,'${userObject.getUserName()}','${userObject.getUserEmail()}')" />
+					<input type="button" value="comment" ng-click="insertComment('${userObject.getUserName()}','${userObject.getUserEmail()}')" />
 					<!-- ===================================== Working On This Filed =================================== -->
 				</form>
 			</div>
