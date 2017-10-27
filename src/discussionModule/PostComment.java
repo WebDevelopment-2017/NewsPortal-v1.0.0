@@ -32,9 +32,11 @@ public class PostComment extends HttpServlet {
 		}
 		try
 		{
+			//-----------------------
 			JSONParser parse=new JSONParser();
 			Object obj=parse.parse(sb.toString());
 			JSONObject jobj=(JSONObject)obj;
+			//------------------------------
 			con=Myconnection.getConncetion();
 			String query="INSERT INTO discussioncomments VALUES(null,?,?,?,?)";
 			ps=con.prepareStatement(query);
@@ -46,7 +48,7 @@ public class PostComment extends HttpServlet {
 		}
 		catch(ParseException | SQLException e)
 		{
-			
+			e.printStackTrace();
 		}
 		finally
 		{

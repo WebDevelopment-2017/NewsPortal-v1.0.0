@@ -69,30 +69,36 @@
 	<!-- ================================================================= WebPage Main Section ================================================================= -->
 	<section class="mySection" ng-app="myapp" ng-init="id=${id}">
 	<!-- ======================================= Discussion Section Start ======================================= -->
-	<section class="col-sm-3" ng-controller="getControl_Discussion">
+	<section class="col-sm-3">
+		<div ng-controller="getControl_Discussion" ng-cloak="">
 		<div>
-			<h5><b>{{my_discussion[flag].topic}}</b></h5>
-			<p>{{my_discussion[flag].text}}</p>
-			<h3>Comments Section</h3>
-			<button data-toggle="collapse" data-target="#demo">Comments</button>
-			<div class="insertComment" id="demo">
-				<ul ng-repeat="x in comments" >
-					<li>{{x.name}}</li>
-					<li>{{x.email}}</li>
-					<li>{{x.comment}}</li>
+			<h2><b>{{my_discussion[flag].topic}}</b></h2>
+			<p><b>{{my_discussion[flag].text}}</b></p>
+			<button data-toggle="collapse" data-target="#viewComments" class="btn btn-primary" style="margin-bottom:2%">View Comments</button>
+			<div id="viewComments" style="margin-bottom:2%;height:500px;overflow:auto">
+				<ul ng-repeat="x in comments" style="list-style: none;border:dashed 2px black;padding-top:1%;padding-bottom:1%">
+					<li><h4 style="color:#5d6d7e"><b>{{x.name}}</b></h4></li>
+					<li><p style="color:#ba4a00"><b>{{x.comment}}</b></p></li>
 				</ul>
 			</div>
-			<div>
+			<div style="margin-top:3%">
 			<!-- ng-controller="postComment_Discussion" -->
 				<form name="myform">
 					<!-- ===================================== Working On This Filed =================================== -->
-					<input type="text" id="userComment" placeholder="Comment" ng-model="mycomment" name="mytext" required pattern="[a-zA-Z0-9 ]+"/>
-					<input type="button" value="comment" ng-click="insertComment('${userObject.getUserName()}','${userObject.getUserEmail()}')" />
+					<table>
+						<tr>
+							<td style="width:90%"><input type="text" id="userComment" placeholder="Comment" ng-model="mycomment" name="mytext" required pattern="[a-zA-Z0-9 ]+" class="form-control" /></td>
+							<td style="width:10%"><input type="button" value="comment" ng-click="insertComment('${userObject.getUserName()}','${userObject.getUserEmail()}')" class="btn btn-success" /></td>
+						</tr>
+					</table>
 					<!-- ===================================== Working On This Filed =================================== -->
 				</form>
 			</div>
-			<input type="button" value="Next" ng-click="nextIndex()"/>
-			<input type="button" value="Previous" ng-click="previousIndex()"/>
+			<ul class="next_previous">
+				<li><input type="button" value="Next" ng-click="nextIndex()" class="form-control btn btn-danger"/></li>
+				<li><input type="button" value="Previous" ng-click="previousIndex()" class="form-control btn btn-danger"/></li>
+			</ul>
+		</div>
 		</div>
 	</section>
 	<!-- ======================================= Discussion Section End ======================================= -->
@@ -496,7 +502,10 @@
       		</div>
 	    </div>
 	    </div> 
-	  </div>
+	    <div id="menu5" class="tab-pane fade" ng-controller="mycontroller_UserFriends">
+		 	
+ 		</div>
+	    </div>
 	  </section>
 	  <!-- ======================================= Navigation Section End ===================================== -->
 	</section>

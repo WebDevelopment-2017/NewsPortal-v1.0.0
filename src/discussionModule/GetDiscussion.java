@@ -1,4 +1,5 @@
 package discussionModule;
+//--------------------Packages---------------
 import connection.Myconnection;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;;
+import org.json.simple.JSONArray;
+//-----------------------------------------------
 @WebServlet("/GetDiscussion")
 public class GetDiscussion extends HttpServlet
 {
@@ -20,9 +22,11 @@ public class GetDiscussion extends HttpServlet
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		// -------------- Variables ----------
 		Connection con=null;
 		ResultSet rst=null;
 		PreparedStatement ps=null;
+		//--------------- JSON Object ---------------
 		JSONObject wrapperObj= new JSONObject();
 		JSONArray wrapperArray=new JSONArray();
 		try
@@ -46,7 +50,7 @@ public class GetDiscussion extends HttpServlet
 		}
 		catch(SQLException e)
 		{
-			//Redirect To An Error Page
+			e.printStackTrace();
 		}
 		finally
 		{

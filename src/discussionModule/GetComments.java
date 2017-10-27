@@ -37,9 +37,11 @@ public class GetComments extends HttpServlet
 		}
 		try
 		{
+			//---------------
 			JSONParser parse=new JSONParser();
 			Object obj=parse.parse(sb.toString());
 			JSONObject jobj=(JSONObject)obj;
+			//-----------------------
 			con=Myconnection.getConncetion();
 			String query="SELECT * FROM discussioncomments WHERE discussionId=?";
 			ps=con.prepareStatement(query);
@@ -61,7 +63,7 @@ public class GetComments extends HttpServlet
 		}
 		catch(ParseException | SQLException e)
 		{
-			
+			e.printStackTrace();
 		}
 		finally
 		{

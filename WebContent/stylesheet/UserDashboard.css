@@ -168,3 +168,12 @@
 {
 	margin-top:5%;
 }
+.next_previous
+{
+	margin-top:4%;
+	list-style: none;
+}
+.next_previous li
+{
+	display:inline-block;
+}

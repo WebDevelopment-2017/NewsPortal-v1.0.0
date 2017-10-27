@@ -28,6 +28,7 @@ public class GET_HOME_POST extends HttpServlet {
 		StringBuilder sb=new StringBuilder();
 		BufferedReader br=request.getReader();
 		String temp=null;
+		//----------------------------------
 		while((temp=br.readLine())!=null)
 		{
 			sb.append(temp);
@@ -43,11 +44,15 @@ public class GET_HOME_POST extends HttpServlet {
 			e.printStackTrace();
 		}
 		JSONObject GET_JSON_OBJ=(JSONObject)obj;
+		//----------------------------------
 		int categoryId=Integer.parseInt(GET_JSON_OBJ.get("id").toString());
+		//---------------------------------------
 		List<POST_BEAN> mylist=new ArrayList<POST_BEAN>();
 		mylist=GET_HOME_POST_Class.GET_POST(categoryId);
+		//------------------------
 		JSONObject JSON_WRAPPER=new JSONObject();
 		JSONArray JSON_ARRAY=new JSONArray();
+		//---------------------------------
 		for(POST_BEAN i : mylist)
 		{
 			JSONObject temp_obj=new JSONObject();
@@ -59,6 +64,7 @@ public class GET_HOME_POST extends HttpServlet {
 			JSON_ARRAY.add(temp_obj);
 		}
 		JSON_WRAPPER.put("my_post_data",JSON_ARRAY);
+		//-------------------------------------
 		PrintWriter pw=response.getWriter();
 		pw.println(JSON_WRAPPER);
 	}
