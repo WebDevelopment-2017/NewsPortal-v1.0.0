@@ -7,48 +7,45 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <title>Insert title here</title>
 <%@  taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@  taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<style>
-	table,tr,td
-	{
-		 border: 2px solid black;
-	}
-</style>
 </head>
 <body>
 	<center>
 	<c:set var="postId" value="${param.id}"></c:set>
 	<c:set var="dataObject" value="${GetDiscussion.getDiscussion(postId)}" />
 	<form method="POST" action="UpdateDiscussion?id=${postId}">
-		<table cellpadding="10">
+		<table class="table">
 			<tr>
 				<td>
-					Topic
+					<b>Topic</b>
 				</td>
 				<td>
-					Description
+					<b>Description</b>
 				</td>
 				<td>
-					Category
+					<b>Category</b>
 				</td>
 				<td colspan="3">
-					Publish
+					<b>Publish</b>
 				</td>
 				<td>
-					Add
+					<b>Update</b>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<textarea required name="topic">${dataObject.getTopic()}</textarea>
+					<textarea required name="topic" class="form-control" cols="50" rows="5" maxlength="100" minlength="10">${dataObject.getTopic()}</textarea>
 				</td>
 				<td>
-					<textarea required name="description">${dataObject.getDescription()}</textarea>
+					<textarea required name="description" class="form-control" cols="50" rows="5" maxlength="100" minlength="10">${dataObject.getDescription()}</textarea>
 				</td>
 				<td>
-					<select name="category" id="category" required>
+					<select name="category" id="category" required class="form-control">
 						<c:set var="list" value="${GetCategory.category()}"/>  
 						<c:forEach items="${list}" var="element">
 							<c:choose>
@@ -68,7 +65,7 @@
 				</td>
 				<c:set var="date" value="${fn:split(dataObject.getDate(),'-')}" />
 				<td>
-					<select name="day" id="day" required>
+					<select name="day" id="day" required class="form-control">
 					<c:forEach var="i" begin="1" end="31">
 						<c:choose>
 							<c:when test="${i==date[2]}"><option value="${i}" selected>${i}</option></c:when>
@@ -78,7 +75,7 @@
 					</select>
 				</td>
 				<td>
-					<select name="month" id="month" required>
+					<select name="month" id="month" required class="form-control">
 						<c:forEach var="i" begin="1" end="12">
 							<c:choose>
 								<c:when test="${i==date[1]}"><option value="${i}" selected>${i}</option></c:when>
@@ -88,7 +85,7 @@
 					</select>
 				</td>
 				<td>
-					<select name="year" id="year" required>
+					<select name="year" id="year" required class="form-control">
 						<c:forEach var="i" begin="2017" end="2100">
 							<c:choose>
 								<c:when test="${i==date[0]}"><option value="${i}" selected>${i}</option></c:when>
@@ -98,7 +95,7 @@
 					</select>
 				</td>
 				<td>
-					<input type="submit" value="Add" onclick="validate();"/>
+					<input type="submit" value="Update" class="form-control btn btn-primary" />
 				</td>
 			</tr>
 		</table>

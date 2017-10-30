@@ -30,11 +30,11 @@ public class UpdateDiscussion extends HttpServlet
 		//----------------------------------------------------------------------------------------------------------
 		if(ob.UpdateData(topic, description, category, date, id)!=0)
 		{
-			response.sendRedirect("adminAllDiscussion.jsp");
+			response.sendRedirect("adminAllDiscussion.jsp?flag_Update=1");
 		}
 		else
 		{
-			response.sendRedirect("adminAllDiscussion.jsp");
+			response.sendRedirect("adminAllDiscussion.jsp?flag_Update=0");
 		}
 	}
 	
@@ -58,8 +58,7 @@ public class UpdateDiscussion extends HttpServlet
 		}
 		catch(SQLException e)
 		{
-			System.out.println("Mysql Error" +e);
-			return 0;
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -76,13 +75,12 @@ public class UpdateDiscussion extends HttpServlet
 			}
 			catch(SQLException e)
 			{
-				return 0;
+				e.printStackTrace();
 			}
 		}
 		return result;
 	}
 	//------------------------------------------------------------------------------------------------------------------------------------------
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		doGet(request, response);

@@ -1,6 +1,7 @@
 package admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -16,22 +17,24 @@ public class DeleteDiscussion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		int id=Integer.parseInt(request.getParameter("id"));
-		DeleteDiscussion ob=new DeleteDiscussion();
-		ob.deletePost(id);
-		response.sendRedirect("adminAllDiscussion.jsp");
+		PrintWriter pw=response.getWriter();
+		pw.println("Please Wait .....");
+		int id = Integer.parseInt(request.getParameter("id"));
+		int result = DeleteDiscussion.deletePost(id);
+		response.sendRedirect("adminAllDiscussion.jsp?flag_Delete="+result);
 	}
-	public void deletePost(int id)
+	public static int deletePost(int id)
 	{
 		Connection con=null;
 		PreparedStatement ps=null;
+		int result=0;
 		try
 		{
-			con=Myconnection.getConncetion();
-			String sql="DELETE FROM discussion WHERE discussionId=?";
-			ps=con.prepareStatement(sql);
+			con = Myconnection.getConncetion();
+			String sql = "DELETE FROM discussion WHERE discussionId=?";
+			ps = con.prepareStatement(sql);
 			ps.setInt(1,id);
-			ps.executeUpdate();
+			result = ps.executeUpdate();
 		}
 		catch(SQLException e)
 		{
@@ -52,8 +55,9 @@ public class DeleteDiscussion extends HttpServlet {
 			}
 			catch(SQLException e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
+		return result;
 	}
 }

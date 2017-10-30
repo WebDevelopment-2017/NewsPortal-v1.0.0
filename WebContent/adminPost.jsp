@@ -3,9 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script src="MaterialDesign/material.min.js"></script>
-<link href="MaterialDesign/material.indigo-pink.min.css" rel="stylesheet" />
-<link href="MaterialDesign/icon.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="javascript/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="stylesheet/jquery-ui.css">
 <script src="javascript/jquery-ui.js"></script>

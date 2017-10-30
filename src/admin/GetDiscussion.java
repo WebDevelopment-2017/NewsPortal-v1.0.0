@@ -18,7 +18,7 @@ public class GetDiscussion
 		try
 		{
 			con=Myconnection.getConncetion();
-			String sql="SELECT * FROM discussion WHERE adminId=?";
+			String sql="SELECT * FROM discussion WHERE adminId=? ORDER BY discussionDate DESC";
 			ps=con.prepareStatement(sql);
 			ps.setInt(1,adminId);
 			rst=ps.executeQuery();
