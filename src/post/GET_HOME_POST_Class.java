@@ -36,6 +36,7 @@ public class GET_HOME_POST_Class
 					+ "userId AS AUTHOR,"
 					+ "date AS PUBLISHDATE,\"userpost\" AS USER "
 					+ "FROM userpost WHERE categoryId=? "
+					+ "AND postId IN (SELECT postId FROM verifypost)"
 					+ "ORDER BY PUBLISHDATE "
 					+ "LIMIT 25";
 			ps=con.prepareStatement(sql);
