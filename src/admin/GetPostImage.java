@@ -21,7 +21,6 @@ public class GetPostImage extends HttpServlet
 		ResultSet rst=null;
 		int requestFileId=Integer.parseInt(request.getParameter("requestFileIndex"));
 		int requestId=Integer.parseInt(request.getParameter("requestId"));
-		System.out.println(requestFileId+" "+requestId);
 		try
 		{
 			con=Myconnection.getConncetion();
@@ -29,7 +28,6 @@ public class GetPostImage extends HttpServlet
 			ps=con.prepareStatement(query);
 			ps.setInt(1,requestId);
 			rst=ps.executeQuery();
-			System.out.println("Working New Four !");
 			byte[] myimage=null;
 			while(rst.next())
 			{

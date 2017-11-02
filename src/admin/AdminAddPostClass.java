@@ -7,14 +7,14 @@ public class AdminAddPostClass
 {
 	public int InsertPost(AdminAddPostBean obj)
 	{
-		int result=0;
-		Connection con=null;
-		PreparedStatement ps=null;
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
 		try
 		{
-			con=Myconnection.getConncetion();
-			String sql="INSERT INTO adminpost VALUES(null,?,?,?,?,?,?,?,?,?)";
-			ps=con.prepareStatement(sql);
+			con = Myconnection.getConncetion();
+			String sql = "INSERT INTO adminpost VALUES(null,?,?,?,?,?,?,?,?,?)";
+			ps = con.prepareStatement(sql);
 			ps.setInt(1,obj.getAdminId());
 			ps.setString(2,obj.getName());
 			ps.setInt(3,obj.getCategoryId());
@@ -28,7 +28,7 @@ public class AdminAddPostClass
 		}
 		catch(SQLException e)
 		{
-			System.out.println("My Error : "+e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -45,7 +45,7 @@ public class AdminAddPostClass
 			}
 			catch(SQLException e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 		return result;

@@ -13,7 +13,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ page import="control.GetCategory" %>
 <%@  taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<title>Insert title here</title>
 <script>
 	$(function() 
 			{
@@ -25,72 +24,87 @@
 			    	}); 
 			});
 </script>
+<style>
+	.table>tbody>tr>td 
+	{
+    	border-top: none;
+    	color:#2e4053;
+	}
+</style>
 </head>
 <body>
-	<center>
-		<div class="mdl-card mdl-shadow--2dp" style="width:50%">
+	<div style="width:100%">
 		<form action="AdminAddPost" method="POST" enctype="multipart/form-data">
-			<table>
+			<h2><b>Add Your Post</b></h2>
+			<center>
+				<table class="table bordless">
 				<tr>
-					<td>Post Name</td>
-					<td><input type="text" name="name"/></td>
+					<td><b>Post Name</b></td>
+					<td class="no-line"><input type="text" name="name" class="form-control" style="width:70%" required/></td>
 				</tr>
 				<tr>
-					<td>Post Category</td>
+					<td><b>Post Category</b></td>
 					<td>
-						<select name="category">
+						<select name="category" class="form-control" style="width:30%">
 							<c:set var="list" value="${GetCategory.category()}" />
 							<c:forEach items="${list}" var="element">
-							<option value="${element.getCategoryId()}">${element.getCategoryName()}</option>
+							<option value="${element.getCategoryId()}" >${element.getCategoryName()}</option>
 							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>Post Body</td>
+					<td><b>Post Body</b></td>
 					<td>
-						<textarea name="body">
+						<textarea name="body" class="form-control" rows="15" cols="50" required>
 						</textarea>
 					</td>
 				</tr>
 				<tr>
-					<td>Post Work</td>
+					<td><b>Post Work</b></td>
 					<td>
-						<textarea name="work">
+						<textarea name="work" class="form-control" rows="5" cols="50" required>
 						</textarea>
 					</td>
 				</tr>
 				<tr>
-					<td>Primary Image</td>
-					<td><input type="file" name="image1" onchange="Image1();" id="postImage1" required/></td>
+					<td><b>Primary Image</b></td>
+					<td><input type="file" name="image1" onchange="Image1();" id="postImage1" required class="btn btn-warning"/></td>
 				</tr>
 				<tr>
 					<td colspan="2"><small id="image11" style="display:none"><b>Invalid Image Format</b></small><small id="image12" style="display:none"><b>Size is not suitable</b></small></td>
 				</tr>
 				<tr>
-					<td>Secondary Image</td>
-					<td><input type="file" name="image2" onchange="Image2();" id="postImage2" required/></td>
+					<td><b>Secondary Image</b></td>
+					<td><input type="file" name="image2" onchange="Image2();" id="postImage2" required class="btn btn-warning"/></td>
 				</tr>
 				<tr>
 					<td colspan="2"><small id="image21" style="display:none"><b>Invalid Image Format</b></small><small id="image22" style="display:none"><b>Size is not suitable</b></small></td>
 				</tr>
 				<tr>
-					<td>Video</td>
-					<td><input type="file" name="video1" onchange="Video1();" id="postVideo1" required/></td>
+					<td><b>Video</b></td>
+					<td><input type="file" name="video1" onchange="Video1();" id="postVideo1" required class="btn btn-warning"/></td>
 				</tr>
 				<tr>
 					<td colspan="2"><small id="image31" style="display:none"><b>Invalid Video Format</b></small><small id="image32" style="display:none"><b>Size is not suitable</b></small></td>
 				</tr>
 				<tr>
-					<td>Date To Publish</td>
-					<td><input type="date" name="date" class="mydate"/></td>
+					<td><b>Date To Publish</b></td>
+					<td><input type="date" name="date" class="mydate" class="form-control" class="form-control" required/></td>
 				</tr>
 				<tr>
-					<td><input type="submit" name="Post" id="add"  value="Post" onclick="return checkFiles();"/></td>
+					<td colspan="2"><input type="submit" name="Post" id="add"  value="Post" onclick="return checkFiles();" class="btn btn-success"/></td>
 				</tr>
 			</table>
+			</center>
 		</form>
-		</div>
-	</center>
+		<c:set var="flag" value="${param['flag']}" />
+		<c:if test="${flag>0}">
+			<small style="color: #2e4053"><b>Status: Data Saved !</b></small>
+		</c:if>
+		<c:if test="${flag==0}">
+			<small style="color: #c0392b"><b>Status: Something Went Wrong !</b></small>
+		</c:if>
+	</div>
 </body>
 </html>

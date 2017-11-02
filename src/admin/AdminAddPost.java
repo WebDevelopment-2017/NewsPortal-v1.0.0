@@ -21,12 +21,14 @@ public class AdminAddPost extends HttpServlet
 	{
 		PrintWriter pw=response.getWriter();
 		pw.println("Please Wait ....");
-		AdminAddPostBean apb_obj=new AdminAddPostBean();
-		AdminAddPost ap_obj=new AdminAddPost();
-		AdminAddPostClass apc_obj=new AdminAddPostClass();
-		HttpSession session=request.getSession();
-		AdminBean obj=(AdminBean)session.getAttribute("adminObject");
-		System.out.println(obj.getId());
+		
+		AdminAddPostBean apb_obj = new AdminAddPostBean();
+		AdminAddPost ap_obj = new AdminAddPost();
+		AdminAddPostClass apc_obj = new AdminAddPostClass();
+		
+		HttpSession session = request.getSession();
+		AdminBean obj = (AdminBean)session.getAttribute("adminObject");
+		
 		apb_obj.setAdminId(obj.getId());
 		apb_obj.setName(request.getParameter("name"));
 		apb_obj.setCategoryId(Integer.parseInt(request.getParameter("category")));
@@ -36,11 +38,9 @@ public class AdminAddPost extends HttpServlet
 		apb_obj.setImage2(ap_obj.myInputStream(request.getPart("image2")));
 		apb_obj.setVideo1(ap_obj.myInputStream(request.getPart("video1")));
 		apb_obj.setDate(request.getParameter("date"));
+		
 		int result=apc_obj.InsertPost(apb_obj);
-		if(result>0)
-		{
-			pw.println("Data Saved");
-		}
+		response.sendRedirect("adminPost.jsp?flag="+result);
 	}
 	protected InputStream myInputStream(Part content)
 	{

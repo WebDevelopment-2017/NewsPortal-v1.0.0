@@ -13,6 +13,13 @@
 <title>Insert title here</title>
 <%@  taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@  taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+	.table>tbody>tr>td 
+	{
+    	border-top: none;
+    	color:#2e4053;
+	}
+</style>
 </head>
 <body>
 	<center>

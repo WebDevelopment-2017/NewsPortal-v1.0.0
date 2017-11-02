@@ -296,7 +296,7 @@
 								</tr>
 								<tr>
 									<td><b style="color:#34495e" data-toggle="collapse" data-target="#image1">First Image&nbsp;&nbsp;<small style="color:red">Click to see your previous page</small></b></td>
-									<td style="overflow:hidden"><input type="file" class="btn btn-info" name="postImage1" id="postImage1_u" style="width:100%" onchange="Image1_u();" required/></td>
+									<td style="overflow:hidden"><input type="file" class="btn btn-info" name="postImage1" id="postImage1_u" style="width:100%" onchange="Image1_u();" /></td>
 								</tr>
 								<tr>
 									<td colspan="2"><small id="image11_u" style="display:none;color:red"><b>Invalid Image Format</b></small><small id="image12_u" style="display:none;color:red"><b>Size is not suitable</b></small></td>
@@ -306,7 +306,7 @@
 								</tr>
 								<tr>
 									<td><b style="color:#34495e" data-toggle="collapse" data-target="#image2">Second Image&nbsp;&nbsp;<small style="color:red">Click to see your previous page</small></b></td>
-									<td style="overflow:hidden"><input type="file" class="btn btn-info" name="postImage2" id="postImage2_u" style="width:100%" onchange="Image2_u(this.id);" required/></td>
+									<td style="overflow:hidden"><input type="file" class="btn btn-info" name="postImage2" id="postImage2_u" style="width:100%" onchange="Image2_u(this.id);" /></td>
 								</tr>
 								<tr>
 									<td colspan="2"><small id="image21_u" style="display:none;color:red"><b>Invalid Image Format</b></small><small id="image22_u" style="display:none;color:red"><b>Size is not suitable</b></small></td>
@@ -316,7 +316,7 @@
 								</tr>
 								<tr>
 									<td data-toggle="collapse" data-target="#video"><b style="color:#34495e">Video&nbsp;&nbsp;<small style="color:red">Click to see your previous page</small></b></td>
-									<td style="overflow:hidden"><input type="file" class="btn btn-info" name="postVideo1" id="postVideo1_u" style="width:100%" onchange="Video1_u(this.id);" required/></td>
+									<td style="overflow:hidden"><input type="file" class="btn btn-info" name="postVideo1" id="postVideo1_u" style="width:100%" onchange="Video1_u(this.id);" /></td>
 								</tr>
 								<tr>
 									<td colspan="2"><small id="image31_u" style="display:none;color:red"><b>Invalid Video Format</b></small><small id="image32_u" style="display:none;color:red"><b>Size is not suitable</b></small></td>

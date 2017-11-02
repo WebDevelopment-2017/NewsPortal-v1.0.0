@@ -27,13 +27,13 @@
 			    <nav class="mdl-navigation">
 			      <a class="mdl-navigation__link" href="addDiscussion.jsp" target="myframe"><b>Add Discussion</b></a>
 			      <a class="mdl-navigation__link" href="adminAllDiscussion.jsp" target="myframe"><b>Discussion</b></a>
-			      <a class="mdl-navigation__link" href="adminPost.jsp"><b>Add Post</b></a>
-			      <a class="mdl-navigation__link" href="adminAllPost.jsp"><b>Link</b></a>
+			      <a class="mdl-navigation__link" href="adminPost.jsp" target="myframe"><b>Add Post</b></a>
+			      <a class="mdl-navigation__link" href="adminAllPost.jsp" target="myframe"><b>All Post</b></a>
 			    </nav>
 		  	</div>
 			<main>
-				<div style="margin:10%;height:100%;overflow:auto">
-		    		<iframe src="#" name="myframe" style="height:900px">
+				<div style="margin:3%;overflow:auto">
+		    		<iframe src="#" name="myframe" style="height:1500px">
 		    		</iframe>
 		    	</div>
 			</main>

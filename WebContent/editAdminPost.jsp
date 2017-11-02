@@ -8,9 +8,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script src="MaterialDesign/material.min.js"></script>
-<link href="MaterialDesign/material.indigo-pink.min.css" rel="stylesheet" />
-<link href="MaterialDesign/icon.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="javascript/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="stylesheet/jquery-ui.css">
 <script src="javascript/jquery-ui.js"></script>
@@ -29,24 +29,28 @@
 			    	}); 
 			});
 </script>
+<style>
+	.table>tbody>tr>td
+	{
+		border:0px;
+	}
+</style>
 </head>
 <body>
 	<c:set var="id" value="${param['id']}" />
-	<p>${id}</p>
 	<c:set var="object" value="${GetPostByIdClass.getPost(id)}" />
-	${object.getBody()}
 	<center>
-		<div class="mdl-card mdl-shadow--2dp" style="width:50%">
+		<div style="width:100%">
 		<form action="AdminUpdatePost?id=${id}" method="POST" enctype="multipart/form-data">
-			<table>
+			<table class="table">
 				<tr>
-					<td>Post Name</td>
-					<td><input type="text" name="name" value="${object.getName()}"/></td>
+					<td><b>Post Name</b></td>
+					<td><input type="text" name="name" value="${object.getName()}" class="form-control" style="width:75%"/></td>
 				</tr>
 				<tr>
-					<td>Post Category</td>
+					<td><b>Post Category</b></td>
 					<td>
-						<select name="category">
+						<select name="category" class="form-control" style="width:50%">
 							<c:set var="list" value="${GetCategory.category()}" />
 							<c:forEach items="${list}" var="element">
 							<c:choose>
@@ -54,7 +58,7 @@
 								<option value="${element.getCategoryId()}" selected>${element.getCategoryName()}</option>
 							</c:when>
 							<c:otherwise>
-								<option value="${element.getCategoryId()}" selected>${element.getCategoryName()}</option>
+								<option value="${element.getCategoryId()}" >${element.getCategoryName()}</option>
 							</c:otherwise>
 							</c:choose>
 							</c:forEach>
@@ -62,54 +66,54 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Post Body</td>
+					<td><b>Post Body</b></td>
 					<td>
-						<textarea name="body">
+						<textarea name="body" class="form-control" rows="15" cols="50" required>
 							${object.getBody()}
 						</textarea>
 					</td>
 				</tr>
 				<tr>
-					<td>Post Work</td>
+					<td><b>Post Work</b></td>
 					<td>
-						<textarea name="work">
+						<textarea name="work" class="form-control" rows="5"  cols="50" required>
 							${object.getBody()}
 						</textarea>
 					</td>
 				</tr>
 				<tr>
-					<td>Primary Image</td>
-					<td><input type="file" name="image1" onchange="Image1();" id="postImage1" /></td>
+					<td><b>Primary Image</b></td>
+					<td><input type="file" name="image1" onchange="Image1();" id="postImage1" class="btn btn-warning" /></td>
 				</tr>
 				<tr>
-					<td colspan="3"><image src="GetPostImage?requestId=${object.getPostId()}&requestFileIndex=1" width="100%" height="100px"></image></td>
+					<td colspan="3"><image src="GetPostImage?requestId=${object.getPostId()}&requestFileIndex=1" width="30%" height="300px" style="border-radius:5px"></image></td>
 				</tr>
 				<tr>
 					<td colspan="2"><small id="image11" style="display:none"><b>Invalid Image Format</b></small><small id="image12" style="display:none"><b>Size is not suitable</b></small></td>
 				</tr>
 				<tr>
 					<td>Secondary Image</td>
-					<td><input type="file" name="image2" onchange="Image2();" id="postImage2" /></td>
+					<td><input type="file" name="image2" onchange="Image2();" id="postImage2" class="btn btn-warning" /></td>
 				</tr>
 				<tr>
-					<td colspan="3"><image src="GetPostImage?requestId=${object.getPostId()}&requestFileIndex=2" width="100%" height="100px"></image></td>
+					<td colspan="2"><image src="GetPostImage?requestId=${object.getPostId()}&requestFileIndex=2" width="30%" height="300px" style="border-radius:5px"></image></td>
 				</tr>
 				<tr>
 					<td colspan="2"><small id="image21" style="display:none"><b>Invalid Image Format</b></small><small id="image22" style="display:none"><b>Size is not suitable</b></small></td>
 				</tr>
 				<tr>
 					<td>Video</td>
-					<td><input type="file" name="video1" onchange="Video1();" id="postVideo1" /></td>
+					<td><input type="file" name="video1" onchange="Video1();" id="postVideo1" class="btn btn-warning"  /></td>
 				</tr>
 				<tr>
-					<td>
-					<video width="320" height="240" controls>
+					<td colspan="3">
+					<video width="30%" height="300px" style="border-radius:5px" controls>
 						  <source src="GetPostImage?requestFileIndex=3&requestId=${object.getPostId()}">
 					</video> 
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2"><small id="image31" style="display:none"><b>Invalid Video Format</b></small><small id="image32" style="display:none"><b>Size is not suitable</b></small></td>
+					<td colspan="2"><small id="image31" style="display:none"><b>Invalid Video Format</b></small><small id="image32" style="display:none" required><b>Size is not suitable</b></small></td>
 				</tr>
 				<tr>
 					<td>Date To Publish</td>
