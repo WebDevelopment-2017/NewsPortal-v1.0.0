@@ -29,6 +29,7 @@
 <script src="javascript/GetWall.js"></script>
 <script src="javascript/GetUserPost.js"></script>
 <script src="javascript/UpdateUser.js"></script>
+<script src="javascript/UpdateUserPassword.js"></script>
 <!-- --------------------------------------- Importing End ---------------------------------------------------------------- -->
 <!-- ============== Get the userId From cookie ============== -->
 <c:set var="id" value="${cookie.DEMOCRATIC_User_id.value}" />
@@ -38,6 +39,12 @@
 <c:set var="userObject" value="${UserBasicInfo.getUserdata(id)}" />
 <!-- ========================== End ========================== -->
 <title>Welcome ${userObject.getUserName()}</title>
+<%
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Cache-Control","no-store");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader ("Expires", 0);
+%>
 </head>
 <body>
 	<!-- ============= upper navigation bar ================= -->
@@ -434,14 +441,14 @@
 	    </div>
 	    <!-- ============================= Message Section End    =========================== -->
 	    <div id="menu7" class="tab-pane fade">
-	      <div ng-controller="myctrl_Update">
+	      <div>
       		<h2 class="heading_edityouraccount" data-toggle="collapse" data-target="#updateTable"><b>Edit Your Account</b></h2>
       		<div class="collapse" id="updateTable" ng-controller="mycontroller_UpdateUser">
-      		<form method="POST" action="SignUp">
+      		<form>
 				<table class="mytable" id="updateTable">
 					<tr>
 						<td><b>Name</b></td>
-						<td><input type="text" required pattern="[a-zA-Z ]+" title="Invalid Name Format" name="name" class="form-control" value="${userObject.getUserName()}" id="name" required /></td>
+						<td><input type="text" required pattern="[a-zA-Z ]+" title="Invalid Name Format" name="name" class="form-control" placeholder="${userObject.getUserName()}" id="name"/></td>
 					</tr>
 					<tr>
 						<td><b>Gender</b></td>
@@ -467,12 +474,13 @@
 					<tr>
 						<td><b>Email</b></td>
 						<td>
-							<input type="email" name="email" required ng-keyup="checkEmail();" id="email" class="form-control" value="${userObject.getUserEmail()}" required />
-							<p ng-show="emailMessage" class="error"><small><b>Email Already Registered</b></small></p>
+							<input type="email" name="email" ng-change="validateEmail();" id="email" class="form-control" placeholder="${userObject.getUserEmail()}" ng-model="userEmail" required />
+							<br>
+							<p ng-hide="flag" class="error"><small style="color: #922b21"><b>Email Id Already Registered ...</b></small></p>
 						</td>
 					</tr>
 					<tr>
-						<td><input type="button" name="add" value="Update Detail" id="btn_submit" ng-disabled="flag" class="form-control btn btn-success" ng-click="update()"/></td>
+						<td><input type="submit" name="add" value="Update Detail" id="btn_submit" ng-disabled="flagButton" class="form-control btn btn-success" ng-click="update()"/></td>
 					</tr>
 				</table>
 			</form>
@@ -480,23 +488,31 @@
 	      </div>
 	       <div>
 	    	<h2 class="heading_edityouraccount" data-toggle="collapse" data-target="#updatePasswordTable"><b>Edit Your Password</b></h2>
-      		<div class="collapse" id="updatePasswordTable">
-      		<form method="POST" action="SignUp">
+      		<div class="collapse" id="updatePasswordTable" ng-controller="mycontroller_UpdateUserPssword">
+      		<form>
 				<table class="mytable" id="updateTable">
 					<tr>
 						<td><b>Old Password</b></td>
-						<td><input type="text" required name="oldPassword" class="form-control" /></td>
+						<td><input type="password" required name="oldPassword" class="form-control" ng-change="compareOldPassword()" ng-model="userPassword"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><small ng-show="oldPassword!=userPassword" style="color:  #922b21">Enter Correct Password</small></td>
 					</tr>
 					<tr>
 						<td><b>New Password</b></td>
-						<td><input type="text" required name="newPassword" class="form-control" /></td>
+						<td><input type="password" required name="newPassword" class="form-control" ng-model="newPassword"/></td>
 					</tr>
 					<tr>
 						<td><b>Confirm Password</b></td>
-						<td><input type="text" required name="confPassword" class="form-control" /></td>
+						<td><input type="password" required name="confPassword" class="form-control" ng-model="confirmPassword"/></td>
 					</tr>
 					<tr>
-						<td><input type="submit" name="add" value="Update Detail" id="btn_submit" ng-disabled="flag" class="form-control btn btn-success"/></td>
+						<td></td>
+						<td><small ng-show="newPassword!=confirmPassword" style="color:  #922b21">Enter Correct Confirm Password</small></td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="add" value="Update Detail" id="btn_submit"  class="form-control btn btn-success" ng-disabled="oldPassword!=userPassword || newPassword!=confirmPassword" ng-click="updatePassword()" /></td>
 					</tr>
 				</table>
 			</form>
