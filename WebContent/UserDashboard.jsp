@@ -28,6 +28,7 @@
 <script src="javascript/addNews.js"></script>
 <script src="javascript/GetWall.js"></script>
 <script src="javascript/GetUserPost.js"></script>
+<script src="javascript/UpdateUser.js"></script>
 <!-- --------------------------------------- Importing End ---------------------------------------------------------------- -->
 <!-- ============== Get the userId From cookie ============== -->
 <c:set var="id" value="${cookie.DEMOCRATIC_User_id.value}" />
@@ -435,30 +436,30 @@
 	    <div id="menu7" class="tab-pane fade">
 	      <div ng-controller="myctrl_Update">
       		<h2 class="heading_edityouraccount" data-toggle="collapse" data-target="#updateTable"><b>Edit Your Account</b></h2>
-      		<div class="collapse" id="updateTable">
+      		<div class="collapse" id="updateTable" ng-controller="mycontroller_UpdateUser">
       		<form method="POST" action="SignUp">
 				<table class="mytable" id="updateTable">
 					<tr>
 						<td><b>Name</b></td>
-						<td><input type="text" required pattern="[a-zA-Z ]+" title="Invalid Name Format" name="name" class="form-control" value="${userObject.getUserName()}"/></td>
+						<td><input type="text" required pattern="[a-zA-Z ]+" title="Invalid Name Format" name="name" class="form-control" value="${userObject.getUserName()}" id="name" required /></td>
 					</tr>
 					<tr>
 						<td><b>Gender</b></td>
 						<td>
 							<c:choose>
 								<c:when test="${userObject.getUserGender()=='Male'}">
-									<input type="radio" name="gender" value="Male" checked="checked"/><b>Male</b>&nbsp;&nbsp;
+									<input type="radio" name="gender" value="Male" checked="checked" id="gender" required /><b>Male</b>&nbsp;&nbsp;
 								</c:when>
 								<c:otherwise>
-									<input type="radio" name="gender" value="Male" checked="checked"/><b>Male</b>&nbsp;&nbsp;
+									<input type="radio" name="gender" value="Male" checked="checked" id="gender" required /><b>Male</b>&nbsp;&nbsp;
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
 								<c:when test="${userObject.getUserGender()=='Female'}">
-									<input type="radio" name="gender" value="Female" /><b>Female</b>
+									<input type="radio" name="gender" value="Female" id="gender" required /><b>Female</b>
 								</c:when>
 								<c:otherwise>
-									<input type="radio" name="gender" value="Female" /><b>Female</b>
+									<input type="radio" name="gender" value="Female" id="gender" required /><b>Female</b>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -466,12 +467,12 @@
 					<tr>
 						<td><b>Email</b></td>
 						<td>
-							<input type="email" name="email" required ng-keyup="checkEmail();" id="email" class="form-control" value="${userObject.getUserEmail()}" />
+							<input type="email" name="email" required ng-keyup="checkEmail();" id="email" class="form-control" value="${userObject.getUserEmail()}" required />
 							<p ng-show="emailMessage" class="error"><small><b>Email Already Registered</b></small></p>
 						</td>
 					</tr>
 					<tr>
-						<td><input type="submit" name="add" value="Update Detail" id="btn_submit" ng-disabled="flag" class="form-control btn btn-success"/></td>
+						<td><input type="button" name="add" value="Update Detail" id="btn_submit" ng-disabled="flag" class="form-control btn btn-success" ng-click="update()"/></td>
 					</tr>
 				</table>
 			</form>
