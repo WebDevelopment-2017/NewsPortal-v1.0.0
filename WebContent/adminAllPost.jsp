@@ -66,6 +66,7 @@ $(function()
 </head>
 <body ng-app="myapp" ng-controller="myctrl">
 	<c:set var="myobject" value="${sessionScope['adminObject']}"></c:set>
+	<c:if test="${myobject.getId()!=null}">
 	<p>${myobject.getId()}</p>
 	<table>
 		<tr>
@@ -90,5 +91,9 @@ $(function()
 			<td><a href="DeletePost?id={{x.postId}}">Delete</a></td>
 		</tr>
 	</table>
+	</c:if>
+	<c:if test="${myobject.getId()==null}">
+		<small>Please Reload The Page !</small>
+	</c:if>
 </body>
 </html>

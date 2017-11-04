@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="http://vjs.zencdn.net/6.2.8/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 <script src="javascript/angular.min.js"></script>
 <script src="javascript/myModule.js"></script>
 <script src="javascript/GetIndexPost.js"></script>
@@ -24,7 +26,7 @@
 </head>
 <body ng-app="myapp">
 	<!-- ============= upper navigation bar ================= -->
-	<nav class="navbar mynavbar navbar-fixed-top">
+	<nav class="navbar mynavbar">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="#">Democratic</a>
@@ -45,7 +47,7 @@
 	</nav>
 	<!-- ============= upper navigation bar end ============= -->
 	<!-- ================== Header start ==================== -->
-	<haeder class="col-sm-12 myheader">
+	<haeder class="col-sm-12 myheader" >
 		<center><h1><b>Democratic&nbsp;&nbsp;<small>Powered By CUTM</small></b></h1></center>
 	</haeder>
 	<!-- =================== Header End ===================== -->
@@ -95,34 +97,47 @@
 		</center>
 	</div>
 	<div class="col-sm-12">
-		<div style="height:900px;overflow:auto;padding-left:5%">
-			<blockquote ng-repeat="x in mylist" ng-hide="x.tablename==tablename">
-		      <div>
-		      	<image src="GET_POST_MEDIA?requestFileIndex=1&requestId={{x.postId}}&requestTableName={{x.tablename}}" width="5%" height="5%" style="border-radius:5px"/>
-		      	<h4 style="color:#117a65"><b>{{x.name}}</b></h4>
-		      	<ul class="text_image_video">
-			      	<li><a data-toggle="collapse" data-target="#post{{x.postId}}image" style="text-decoration:none"><b>Images</b></a></li>
-			      	<li><a data-toggle="collapse" data-target="#post{{x.postId}}text" style="text-decoration:none"><b>Text</b></a></li>
-			      	<li><a data-toggle="collapse" data-target="#post{{x.postId}}video" style="text-decoration:none"><b>Video</b></a></li>
-		      	</ul>
-		      	<div class="collapse" id="post{{x.postId}}image" style="margin-top:1%;margin-bottom:1%;">
-		      	<image src="GET_POST_MEDIA?requestFileIndex=1&requestId={{x.postId}}&requestTableName={{x.tablename}}" width="400px" height="300px" style="border-radius:5px"/>
-		      	<image src="GET_POST_MEDIA?requestFileIndex=2&requestId={{x.postId}}&requestTableName={{x.tablename}}" width="400px" height="300px" style="border-radius:5px"/>
-		      	</div>
-		      	<div class="collapse" id="post{{x.postId}}text" style="margin-top:2%;margin-bottom:2%;">
-		      	<p>{{x.body}}</p>
-		      	<h6 style="color:red"><b>About This Story : {{x.work}}</b></h6>
-		      	</div>
-		      	<div class="collapse" id="post{{x.postId}}video" style="margin-top:1%;margin-bottom:1%;">
-			      	<video width="500" height="240" controls>
-			  		<source src="GET_POST_MEDIA?requestFileIndex=3&requestId={{x.postId}}&requestTableName={{x.tablename}}" type="video/mp4">
-					</video> 
-				</div>
+		<div>
+			<div  class="sm-col-12">			      	
+		      	<table ng-repeat="x in mylist" ng-hide="x.tablename==tablename" class="table">
+		      		<tr>
+		      			<th colspan="2"><h3 style="color: #34495e"><b>{{x.name}}</b></h3></th>
+		      		</tr>
+		      		<tr>
+		      			<td style="width:30%">
+	      					<table>
+		      					<tr>
+						      		<td style="padding:1%"><image src="GET_POST_MEDIA?requestFileIndex=1&requestId={{x.postId}}&requestTableName={{x.tablename}}" height="200px" width="400px" /></td>
+					      		</tr>
+					      		<tr>
+					      			<td style="padding:1%"><image src="GET_POST_MEDIA?requestFileIndex=2&requestId={{x.postId}}&requestTableName={{x.tablename}}" height="200px" width="400px" /></td>
+					      		</tr>
+				      		</table>
+		      			</td>
+		      			<td style="width:70%">
+		      				<table style="width:100%">
+					      		<tr>
+						      		<td><textarea class="form-control" rows="20" disabled style="color: #212f3c;font-weight: bold;">{{x.body}}</textarea></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+							<td colspan="2"> 
+							<button data-toggle="collapse" data-target="#post{{x.postId}}video">Video</button>
+							<div id="post{{x.postId}}video" class="collapse">
+								 <video id="my-video" class="video-js" controls preload="auto" width="500" height="240" data-setup="{}">
+	   								<source src="GET_POST_MEDIA?requestFileIndex=3&requestId={{x.postId}}&requestTableName={{x.tablename}}" type='video/mp4'>
+	    							<source src="GET_POST_MEDIA?requestFileIndex=3&requestId={{x.postId}}&requestTableName={{x.tablename}}" type='video/webm'>
+	 							 </video>
+							</div> 
+						</td>
+					</tr>
+				</table>
 		      </div>
-		      </blockquote>
 	      </div>
-	</div>
-  </div>
+      </div>
+</div>
   <!-- ==================== My Navigation Bar ======================= -->
 </body>
 </html>

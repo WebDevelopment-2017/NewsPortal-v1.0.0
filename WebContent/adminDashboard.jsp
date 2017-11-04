@@ -29,6 +29,8 @@
 			      <a class="mdl-navigation__link" href="adminAllDiscussion.jsp" target="myframe"><b>Discussion</b></a>
 			      <a class="mdl-navigation__link" href="adminPost.jsp" target="myframe"><b>Add Post</b></a>
 			      <a class="mdl-navigation__link" href="adminAllPost.jsp" target="myframe"><b>All Post</b></a>
+			      <a class="mdl-navigation__link" href="adminVerification.jsp" target="myframe"><b>Post Verification</b></a>
+			      <a class="mdl-navigation__link" href="adminDiverification.jsp" target="myframe"><b>Post Deverification</b></a>
 			    </nav>
 		  	</div>
 			<main>

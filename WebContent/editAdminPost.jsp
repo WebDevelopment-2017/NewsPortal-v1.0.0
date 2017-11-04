@@ -68,17 +68,13 @@
 				<tr>
 					<td><b>Post Body</b></td>
 					<td>
-						<textarea name="body" class="form-control" rows="15" cols="50" required>
-							${object.getBody()}
-						</textarea>
+						<textarea name="body" class="form-control" rows="15" cols="50" required>${object.getBody()}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td><b>Post Work</b></td>
 					<td>
-						<textarea name="work" class="form-control" rows="5"  cols="50" required>
-							${object.getBody()}
-						</textarea>
+						<textarea name="work" class="form-control" rows="5"  cols="50" required>${object.getBody()}</textarea>
 					</td>
 				</tr>
 				<tr>
