@@ -83,7 +83,7 @@
 			<h2><b>{{my_discussion[flag].topic}}</b></h2>
 			<p><b>{{my_discussion[flag].text}}</b></p>
 			<button data-toggle="collapse" data-target="#viewComments" class="btn btn-primary" style="margin-bottom:2%">View Comments</button>
-			<div id="viewComments" style="margin-bottom:2%;height:500px;overflow:auto">
+			<div id="viewComments" style="margin-bottom:2%;height:500px;overflow:auto" class="collapse">
 				<ul ng-repeat="x in comments" style="list-style: none;border:dashed 2px black;padding-top:1%;padding-bottom:1%">
 					<li><h4 style="color:#5d6d7e"><b>{{x.name}}</b></h4></li>
 					<li><p style="color:#ba4a00"><b>{{x.comment}}</b></p></li>
@@ -131,27 +131,43 @@
 	    <!-- ===================== Home Menu End ============================ -->
 	    <!-- ===================== Walll Start ========================== -->
 	    <div id="menu1" class="tab-pane fade" ng-controller="mycontroller_Wall">
-	      <h3>Wall</h3>
-	      <p>{{$scope.name}}</p>
-	      <div style="height:900px;overflow:auto">
-	      <div ng-repeat="x in mylist">
-	      	<h4>{{x.name}}</h4>
-	      	<a data-toggle="collapse" data-target="#post{{x.postid}}image" style="text-decoration:none"><b>Images</b></a>
-	      	<div class="collapse" id="post{{x.postid}}image">
-	      	<div class="col-sm-6"><image src="GetPost?image=7&id={{x.postid}}" width="400px" height="300px"/></div>
-	      	<div class="col-sm-6"><image src="GetPost?image=8&id={{x.postid}}" width="400px" height="300px"/></div>
-	      	</div>
-	      	<p>{{x.body}}</p>
-	      	<h6>{{x.work}}</h6>
-	      	<small>{{x.date}}</small>
-	      	<a data-toggle="collapse" data-target="#post{{x.postid}}video" style="text-decoration:none"><b>Video</b></a>
-	      	<div class="collapse" id="post{{x.postid}}video">
-		      	<video width="500" height="240" controls>
-		  		<source src="GetPost?image=9&id={{x.postid}}" type="video/mp4">
-				</video> 
-			</div>
-	      </div>
-	      </div>
+	      <div>			      	
+		      	<table ng-repeat="x in mylist" class="table">
+		      		<tr>
+		      			<th colspan="2"><h3 style="color: #34495e"><b>{{x.name}}</b></h3></th>
+		      		</tr>
+		      		<tr>
+		      			<td style="width:30%">
+	      					<table>
+		      					<tr>
+						      		<td style="padding:1%"><image src="GetPost?image=7&id={{x.postid}}" height="200px" width="400px" /></td>
+					      		</tr>
+					      		<tr>
+					      			<td style="padding:1%"><image src="GetPost?image=8&id={{x.postid}}" height="200px" width="400px" /></td>
+					      		</tr>
+				      		</table>
+		      			</td>
+		      			<td style="width:70%">
+		      				<table style="width:100%">
+					      		<tr>
+						      		<td><textarea class="form-control" rows="20" disabled style="color: #212f3c;font-weight: bold;">{{x.body}}</textarea></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+							<td colspan="2"> 
+							<button data-toggle="collapse" data-target="#post{{x.postId}}video">Video</button>
+							<div id="post{{x.postId}}video" class="collapse">
+								 <video id="my-video" class="video-js" controls preload="auto" width="500" height="240" data-setup="{}">
+	   								<source src="GetPost?image=9&id={{x.postid}}" type='video/mp4'>
+	    							<source src="GetPost?image=9&id={{x.postid}}" type='video/webm'>
+	 							 </video>
+							</div> 
+						</td>
+					</tr>
+				</table>
+		      </div>
 	    </div>
 	    <!-- ===================== Wall End ============================ -->
 	    <!-- ===================== Add your news start ====================== -->

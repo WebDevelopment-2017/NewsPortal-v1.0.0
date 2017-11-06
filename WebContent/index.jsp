@@ -96,7 +96,7 @@
 		</ul>
 		</center>
 	</div>
-	<div class="col-sm-12">
+	<div class="container">
 		<div>
 			<div  class="sm-col-12">			      	
 		      	<table ng-repeat="x in mylist" ng-hide="x.tablename==tablename" class="table">
@@ -124,7 +124,7 @@
 					</tr>
 					<tr>
 							<td colspan="2"> 
-							<button data-toggle="collapse" data-target="#post{{x.postId}}video">Video</button>
+							<button data-toggle="collapse" data-target="#post{{x.postId}}video" class="btn btn-primary">Video</button>
 							<div id="post{{x.postId}}video" class="collapse">
 								 <video id="my-video" class="video-js" controls preload="auto" width="500" height="240" data-setup="{}">
 	   								<source src="GET_POST_MEDIA?requestFileIndex=3&requestId={{x.postId}}&requestTableName={{x.tablename}}" type='video/mp4'>
